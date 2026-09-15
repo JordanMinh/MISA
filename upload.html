@@ -2,15 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="theme-color" content="#050C9C">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - MISA</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
-    <script src="upload.js" defer></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="misa-core.js"></script>\n    <script src="script.js"></script>
+    <script src="upload.js"></script>
 </head>
 <body>
     <div class="page-shell">
@@ -70,8 +69,8 @@
             </label>
 
             <label>
-                Price (VND)
-                <input type="number" id="pPrice" placeholder="Example: 250000" min="0" required>
+                Price (USD)
+                <input type="number" id="pPrice" placeholder="Example: 9.99" min="0" step="0.01" required>
             </label>
 
             <label>

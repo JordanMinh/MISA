@@ -1,22 +1,31 @@
-# MISA — responsive deployment
+# MISA — production architecture
 
-This build has been adjusted for:
-- Desktop and large monitors
-- Tablets
-- iPhone / Android phones
-- Portrait and landscape orientation
-- Safe areas/notches and mobile browser address bars
-- Responsive navigation, hero card, social boxes, product grids, forms and modals
+Frontend: static HTML/CSS/JS.
+Backend: Supabase Postgres + Auth + Storage.
+Hosting: GitHub Pages or Cloudflare Pages.
 
-## Required assets
+## Setup
+1. Create a Supabase project.
+2. Open SQL Editor and run `supabase_schema.sql`.
+3. In Authentication > Users, create the one admin account you will use.
+4. Copy that user's UUID and run the INSERT at the bottom of `supabase_schema.sql`.
+5. Copy your Supabase Project URL and Publishable key into `config.js`.
+6. In Supabase Authentication settings, disable public sign-ups if you want a single-admin site.
+7. Publish this folder as a static site.
 
-Keep the existing project folder `src/homepage/` next to `index.html`.
-The homepage currently references:
-- `src/homepage/1789269844329_2357849228915211240_g9094353410388076645_581d355e3140d17744989b812fdd117f-Photoroom.png`
-- `src/homepage/download.jfif`
+Do not put a service_role/secret key in `config.js` or any browser file.
 
-Those original image files were not included in the uploaded conversation files, so copy your existing `src/homepage/` folder into this deployment folder before publishing.
+Products are now global: when the admin adds/edits/hides/deletes a product, every visitor sees the database state. Saved products remain per-browser in localStorage, which is appropriate for anonymous bookmarks.
 
-## GitHub Pages
 
-Upload the contents of this folder to the repository root (including `src/homepage/`), then enable GitHub Pages from the repository's Pages settings and deploy from the main branch/root.
+## Important: Admin access
+The admin login uses Supabase Auth. Logging in successfully is not enough:
+the same Auth user's UUID must also exist in `public.admin_users`.
+
+After creating the admin user in Authentication -> Users, copy its User UID
+and run this in SQL Editor:
+
+insert into public.admin_users (user_id) values ('YOUR_USER_UUID');
+
+Then sign in again. Product prices are entered and displayed in USD.
+\n\n## Fixed build\nShared navigation now works on every page. Keep your existing `src/homepage/` folder unchanged beside these files; this package does not replace your original assets.\n

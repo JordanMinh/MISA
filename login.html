@@ -1,0 +1,8 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Admin Login - MISA</title><link rel="stylesheet" href="style.css"><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="misa-core.js"></script></head><body><main class="page-shell" style="max-width:520px"><h1 class="page-title">Admin Login</h1><p class="page-subtitle">Sign in to manage MISA products.</p><form id="loginForm" class="upload-form"><label>Email<input id="email" type="email" autocomplete="username" required></label><label>Password<input id="password" type="password" autocomplete="current-password" required></label><button class="submit-btn" type="submit">Sign in</button><p id="loginError" class="form-note"></p></form></main><script>document.getElementById('loginForm').addEventListener('submit',async e=>{e.preventDefault();const out=document.getElementById('loginError');const emailEl=document.getElementById('email');const passwordEl=document.getElementById('password');out.textContent='Signing in...';const {error}=await MISA.sb.auth.signInWithPassword({email:emailEl.value.trim(),password:passwordEl.value});if(error){out.textContent=error.message;return}
+const admin = await MISA.isAdmin();
+if(!admin){
+  await MISA.sb.auth.signOut();
+  out.textContent='Login succeeded, but this account is not in the admin_users table. Add this user UID to public.admin_users in Supabase.';
+  return;
+}
+location.replace('upload.html');});</script></body></html>
