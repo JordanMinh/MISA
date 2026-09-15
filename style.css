@@ -1603,3 +1603,262 @@ button, input, select, textarea {
     overflow-wrap: anywhere;
   }
 }
+
+/* ============================================================
+   FINAL MOBILE FIX — real viewport-safe layout
+   ============================================================ */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: hidden !important;
+}
+
+.background {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden !important;
+}
+
+/* The nav contains a form; make the form fill the nav so the
+   four controls are distributed inside the viewport. */
+#navbody,
+#navbody form,
+#navbody .ul {
+  box-sizing: border-box;
+}
+
+#navbody form {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#navbody .ul {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 0;
+  margin: 0;
+  padding: 0 2px;
+}
+
+#navbody .ul > label {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#navbody .ul .li {
+  width: 100%;
+  height: 100%;
+}
+
+#navbody .svg {
+  display: block;
+  width: clamp(44px, 14vw, 68px);
+  height: clamp(44px, 14vw, 68px);
+  padding: clamp(8px, 2vw, 13px);
+  margin: 0 !important;
+}
+
+/* Phone hero: use a fixed relationship to the viewport, not the
+   original desktop-sized logo/card values. */
+@media (max-width: 760px) {
+  .background {
+    min-height: 100svh;
+    height: 100svh;
+  }
+
+  #navbody {
+    position: fixed;
+    top: max(10px, env(safe-area-inset-top));
+    left: 50%;
+    width: min(350px, calc(100vw - 20px));
+    height: 54px;
+    transform: translateX(-50%);
+    border-radius: 30px;
+    padding: 0 3px;
+  }
+
+  #navbody .svg {
+    width: 52px;
+    height: 52px;
+    padding: 10px;
+  }
+
+  .logo {
+    width: 145vw !important;
+    max-width: none !important;
+    height: auto !important;
+    top: 8% !important;
+    left: -42% !important;
+  }
+
+  .name {
+    left: 8vw !important;
+    top: 43% !important;
+    font-size: clamp(44px, 13vw, 70px) !important;
+    line-height: 1 !important;
+    max-width: 48vw !important;
+    white-space: nowrap !important;
+  }
+
+  .slogan {
+    left: 8vw !important;
+    top: 54% !important;
+    width: 42vw !important;
+    max-width: 42vw !important;
+    font-size: clamp(13px, 3.8vw, 20px) !important;
+    line-height: 1.15 !important;
+    white-space: normal !important;
+  }
+
+  .card {
+    width: min(42vw, 190px) !important;
+    max-width: calc(100vw - 24px) !important;
+    aspect-ratio: 4 / 5 !important;
+    height: auto !important;
+    max-height: 48svh !important;
+    right: 4vw !important;
+    top: 57% !important;
+    transform: translateY(-50%) !important;
+    border-radius: 22px !important;
+  }
+
+  .content img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  /* Touch devices have no reliable hover. Show compact social
+     buttons permanently in a safe row at the bottom of the card. */
+  .card .box,
+  .card .box1,
+  .card .box2,
+  .card .box3,
+  .card .box4 {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+    left: auto !important;
+    bottom: 9px !important;
+    padding: 4px !important;
+    border-radius: 50% !important;
+    transform: none !important;
+    transition: none !important;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card .box1 { right: 108px !important; }
+  .card .box2 { right: 65px !important; }
+  .card .box3 { right: 22px !important; }
+  .card .box4 { display: none !important; }
+
+  .card .box .icon {
+    width: 27px !important;
+    height: 27px !important;
+    display: block;
+  }
+
+  .card .box .icon .svg {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .card .box::before {
+    opacity: 0 !important;
+  }
+
+  .card:hover,
+  .card:hover .box {
+    transform: none !important;
+  }
+
+  .has-tooltip::after {
+    display: none !important;
+  }
+}
+
+@media (max-width: 380px) {
+  #navbody {
+    width: calc(100vw - 12px);
+    height: 50px;
+  }
+
+  #navbody .svg {
+    width: 48px;
+    height: 48px;
+    padding: 9px;
+  }
+
+  .logo {
+    width: 155vw !important;
+    left: -48% !important;
+  }
+
+  .card {
+    width: 44vw !important;
+    right: 3vw !important;
+  }
+
+  .card .box,
+  .card .box1,
+  .card .box2,
+  .card .box3 {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    bottom: 7px !important;
+  }
+
+  .card .box1 { right: 92px !important; }
+  .card .box2 { right: 54px !important; }
+  .card .box3 { right: 16px !important; }
+
+  .card .box .icon {
+    width: 23px !important;
+    height: 23px !important;
+  }
+}
+
+/* Landscape mobile: keep the hero compact and fully visible. */
+@media (max-width: 900px) and (orientation: landscape) {
+  .logo {
+    width: 100vw !important;
+    left: -28% !important;
+    top: -25% !important;
+  }
+
+  .name {
+    left: 7vw !important;
+    top: 39% !important;
+    font-size: clamp(38px, 8vw, 68px) !important;
+  }
+
+  .slogan {
+    left: 7vw !important;
+    top: 52% !important;
+    width: 35vw !important;
+    max-width: 35vw !important;
+    font-size: clamp(12px, 2.5vw, 20px) !important;
+  }
+
+  .card {
+    width: min(30vw, 210px) !important;
+    right: 4vw !important;
+    top: 55% !important;
+    max-height: 68svh !important;
+  }
+}
