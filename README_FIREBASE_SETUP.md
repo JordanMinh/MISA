@@ -26,7 +26,7 @@ Cloud name trong `config.js` đã được điền là `yy6p2qnz`. Trong Cloudin
 ## 4. Vercel Environment Variables
 Vercel → Project `affiliate` → Settings → Environment Variables. Thêm 4 biến dưới đây, chọn Environment = **Production** (có thể thêm Preview nếu cần):
 
-| Key | Value | Type |
+| Key | Value | Type        |
 |---|---|---|
 | `CLOUDINARY_CLOUD_NAME` | `yy6p2qnz` | Config |
 | `CLOUDINARY_API_KEY` | API Key trong Cloudinary | Secret |
